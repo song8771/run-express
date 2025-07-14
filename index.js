@@ -39,11 +39,18 @@ app.get('/users/:id', (req, res) => {
 })
 
 app.post('/users', (req, res) => {
-    const userInfo = req.body
-    console.log('name', userInfo.name, 'mbti', userInfo.mbti)
-    userInfo.id = Date.now();
-    users.push(userInfo)
-    res.status(201).json({ users })
+    const reqUser = req.body
+    console.log('name', reqUser.name, 'mbti', reqUser.mbti)
+    
+    const newUser = {
+        id : Date.now(),
+        name : reqUser.name,
+        mbti : reqUser.mbti,
+    }
+    // users.push(userInfo)
+    const addUsers = [...users, newUser]
+
+    res.status(201).json({ addUsers })
 })
 
 const PORT = process.env.PORT
